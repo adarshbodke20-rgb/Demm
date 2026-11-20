@@ -1,0 +1,797 @@
+"""<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomy of God — By Adarsh Bodke</title>
+    <meta name="description" content="Anatomy of God — A debut independent exploration into evolution, human psychology, and the origins of belief by Adarsh Bodke.">
+    
+    <!-- Google Fonts: Newsreader (Editorial Serif), Plus Jakarta Sans (Clean Modern UI), JetBrains Mono (Scientific Metadata) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Newsreader"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        paper: {
+                            50: '#FAF9F6',
+                            100: '#F3F1EC',
+                            200: '#E6E2D8',
+                            300: '#D4CEC0',
+                        },
+                        ink: {
+                            900: '#16181D',
+                            800: '#242730',
+                            600: '#4B505E',
+                            400: '#7B8191',
+                        },
+                        accent: {
+                            amber: '#B47B38',
+                            amberLight: '#F4ECE1',
+                            slate: '#2C3E50',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Subtle Paper Grain Texture */
+        body {
+            background-color: #FAF9F6;
+            color: #16181D;
+            background-image: radial-gradient(rgba(22, 24, 29, 0.045) 1px, transparent 0);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        /* Editorial Drop Cap */
+        .drop-cap::first-letter {
+            float: left;
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: 3.6rem;
+            line-height: 0.85;
+            padding-top: 4px;
+            padding-right: 12px;
+            padding-left: 2px;
+            color: #B47B38;
+            font-weight: 500;
+        }
+
+        /* Smooth Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Subtle Book Spine & Cover Elevation */
+        .book-card {
+            background: linear-gradient(145deg, #1E2129 0%, #121419 100%);
+            box-shadow: 
+                -10px 14px 30px rgba(22, 24, 29, 0.18),
+                -2px 0 6px rgba(0, 0, 0, 0.25),
+                inset 2px 0 4px rgba(255, 255, 255, 0.12);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-6px) rotate(-0.8deg);
+            box-shadow: 
+                -14px 22px 40px rgba(22, 24, 29, 0.24),
+                -3px 0 8px rgba(0, 0, 0, 0.3),
+                inset 2px 0 5px rgba(255, 255, 255, 0.18);
+        }
+
+        /* Interactive Star Rating */
+        .star-btn {
+            transition: transform 0.18s ease, color 0.18s ease;
+        }
+        .star-btn:hover {
+            transform: scale(1.18);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4CEC0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B47B38;
+        }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, #B47B38, #16181D);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-accent-amberLight selection:text-ink-900">
+
+    <!-- Top Reading Progress Line -->
+    <div id="progress-bar"></div>
+
+    <!-- Minimalist Sticky Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-paper-50/85 border-b border-paper-200/80">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <span class="w-2 h-2 rounded-full bg-accent-amber group-hover:scale-125 transition-transform"></span>
+                <span class="font-serif text-lg font-medium tracking-tight text-ink-900">Anatomy of God</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-600">
+                <a href="#about-book" class="hover:text-ink-900 transition-colors">The Book</a>
+                <a href="#chapters" class="hover:text-ink-900 transition-colors">Inside the Pages</a>
+                <a href="#authors-note" class="hover:text-ink-900 transition-colors">Author's Note</a>
+                <a href="#author" class="hover:text-ink-900 transition-colors">About Adarsh</a>
+                <a href="#reviews" class="px-3.5 py-1.5 rounded-full bg-ink-900 text-paper-50 hover:bg-accent-amber transition-colors">Leave a Review</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 text-ink-800 hover:text-accent-amber">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-paper-50 border-b border-paper-200 px-6 py-4 space-y-3 text-sm font-medium text-ink-600">
+            <a href="#about-book" class="block hover:text-ink-900">The Book</a>
+            <a href="#chapters" class="block hover:text-ink-900">Inside the Pages</a>
+            <a href="#authors-note" class="block hover:text-ink-900">Author's Note</a>
+            <a href="#author" class="block hover:text-ink-900">About Adarsh</a>
+            <a href="#reviews" class="block text-accent-amber font-semibold">Leave a Reader Review →</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-16 pb-24 md:pt-24 md:pb-32 px-6 border-b border-paper-200/70">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Text Column -->
+            <div class="md:col-span-7 space-y-6 reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-paper-100 border border-paper-200 text-xs font-mono uppercase tracking-wider text-ink-600">
+                    <span>Debut Independent Work</span>
+                    <span class="text-paper-300">•</span>
+                    <span>Self-Researched</span>
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-ink-900 leading-[1.12]">
+                    Anatomy of God
+                </h1>
+
+                <!-- Concise 2-Line Book Summary -->
+                <p class="font-serif text-xl sm:text-2xl text-ink-800 leading-relaxed max-w-xl">
+                    A calm, science-grounded exploration of how lifeless matter evolved into thinking minds—and why the human brain invented the idea of God for comfort, order, and meaning.
+                </p>
+
+                <p class="text-sm sm:text-base text-ink-600 leading-relaxed max-w-lg">
+                    Written as a debut independent research project by <strong class="font-semibold text-ink-900">Adarsh Bodke</strong>, this book examines belief not through anger or debate, but through evolutionary biology, human psychology, and quiet curiosity.
+                </p>
+
+                <div class="pt-3 flex flex-wrap items-center gap-4">
+                    <a href="#reviews" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-ink-900 text-paper-50 text-sm font-medium hover:bg-accent-amber transition-colors shadow-sm">
+                        <span>Share Your Reader Review</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="#authors-note" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-paper-100 border border-paper-200 text-ink-800 text-sm font-medium hover:border-ink-400 transition-colors">
+                        Read Author's Note
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Artistic Book Mockup -->
+            <div class="md:col-span-5 flex justify-center reveal" style="transition-delay: 150ms;">
+                <div class="relative w-64 sm:w-72 aspect-[2/3] rounded-r-xl rounded-l-sm book-card p-7 flex flex-col justify-between text-paper-50 select-none border border-white/10">
+                    <!-- Book Spine Highlight -->
+                    <div class="absolute inset-y-0 left-0 w-3.5 bg-gradient-to-r from-white/15 via-white/5 to-transparent rounded-l-sm"></div>
+                    
+                    <div class="space-y-3 pt-2 pl-2">
+                        <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-accent-amber">First Edition • Independent Research</p>
+                        <div class="w-8 h-[1px] bg-white/25"></div>
+                    </div>
+
+                    <!-- Minimalist Geometric & Neural Motif -->
+                    <div class="my-auto pl-2 flex flex-col items-center justify-center py-4">
+                        <svg class="w-28 h-28 text-accent-amber/90" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.1">
+                            <circle cx="60" cy="60" r="46" stroke-dasharray="3 3" opacity="0.5"/>
+                            <circle cx="60" cy="60" r="32" opacity="0.8"/>
+                            <path d="M60 14 L60 106 M14 60 L106 60" opacity="0.25"/>
+                            <path d="M36 46 Q60 22 84 46 T60 88 T36 46" stroke-width="1.3"/>
+                            <circle cx="60" cy="60" r="4" fill="#B47B38"/>
+                        </svg>
+                        <h2 class="font-serif text-2xl tracking-tight text-center mt-4 text-paper-50">Anatomy of God</h2>
+                        <p class="font-serif italic text-xs text-paper-300 mt-1 text-center">Origins of Belief in the Human Mind</p>
+                    </div>
+
+                    <div class="pl-2 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-paper-300">
+                        <span>ADARSH BODKE</span>
+                        <span class="text-accent-amber">INDIA</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 1: About the Book (2-Line Essence + Core Pillars) -->
+    <section id="about-book" class="py-20 md:py-28 px-6">
+        <div class="max-w-4xl mx-auto space-y-14">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-4 reveal">
+                <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-amber">About the Work</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-medium text-ink-900">A First Book Built on Independent Inquiry</h2>
+                <p class="text-ink-600 text-base sm:text-lg leading-relaxed">
+                    <em>Anatomy of God</em> traces the journey from Earth's lifeless beginnings to the modern human mind, examining how evolution, fear, and emotional need shaped the concept of God. As Adarsh Bodke's debut book born from personal self-research, it offers clear, accessible answers for curious minds without attacking anyone's right to believe.
+                </p>
+            </div>
+
+            <!-- 3 Intellectual Pillars -->
+            <div class="grid sm:grid-cols-3 gap-6 reveal">
+                <div class="p-6 rounded-xl bg-paper-100/80 border border-paper-200/90 space-y-3">
+                    <div class="w-9 h-9 rounded-lg bg-paper-50 border border-paper-200 flex items-center justify-center font-mono text-xs font-medium text-accent-amber">01</div>
+                    <h3 class="font-serif text-xl font-medium text-ink-900">Self-Researched</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Developed independently alongside biology studies—synthesizing evolutionary science, behavioral experiments, and historical observation into simple language.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-xl bg-paper-100/80 border border-paper-200/90 space-y-3">
+                    <div class="w-9 h-9 rounded-lg bg-paper-50 border border-paper-200 flex items-center justify-center font-mono text-xs font-medium text-accent-amber">02</div>
+                    <h3 class="font-serif text-xl font-medium text-ink-900">Calm & Reflective</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Written without mockery or hostility. Instead of telling readers what to think, it asks gentle, honest questions and invites independent reasoning.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-xl bg-paper-100/80 border border-paper-200/90 space-y-3">
+                    <div class="w-9 h-9 rounded-lg bg-paper-50 border border-paper-200 flex items-center justify-center font-mono text-xs font-medium text-accent-amber">03</div>
+                    <h3 class="font-serif text-xl font-medium text-ink-900">Accessible to All</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Designed so even a curious school student can grasp complex ideas—using everyday analogies like the MCQ-style brain and the Parent-Child relationship.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 2: Inside the Book (Chapters & Core Themes) -->
+    <section id="chapters" class="py-20 md:py-24 px-6 bg-paper-100/60 border-y border-paper-200/80">
+        <div class="max-w-4xl mx-auto space-y-12">
+            
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 reveal">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-amber">Structure & Themes</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-medium text-ink-900 mt-1">What Lies Inside the Book</h2>
+                </div>
+                <p class="text-sm text-ink-600 max-w-xs">
+                    A step-by-step progression from cosmic chemistry to human psychology.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 reveal">
+                <!-- Chapter 1 -->
+                <div class="p-7 rounded-xl bg-paper-50 border border-paper-200 shadow-xs hover:border-accent-amber/50 transition-colors">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="font-mono text-xs text-accent-amber font-medium">CHAPTER I</span>
+                        <span class="font-mono text-xs text-ink-400">Cosmology</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-medium text-ink-900 mb-2">Earth Before Life</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Examining the hostile, lifeless early Earth—volcanoes, oceans, and natural chemical shifts—showing how habitable conditions emerged through physical laws rather than pre-planned design.
+                    </p>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="p-7 rounded-xl bg-paper-50 border border-paper-200 shadow-xs hover:border-accent-amber/50 transition-colors">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="font-mono text-xs text-accent-amber font-medium">CHAPTER II</span>
+                        <span class="font-mono text-xs text-ink-400">Biology</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-medium text-ink-900 mb-2">First Life & Evolution</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Tracing primitive cells to complex minds—and challenging the myth of perfection. The world was not built to fit us; through millions of years of trial and error, we evolved to fit an imperfect world.
+                    </p>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="p-7 rounded-xl bg-paper-50 border border-paper-200 shadow-xs hover:border-accent-amber/50 transition-colors">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="font-mono text-xs text-accent-amber font-medium">CHAPTER III</span>
+                        <span class="font-mono text-xs text-ink-400">Cognition & Society</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-medium text-ink-900 mb-2">Religion & The Birth of God</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Exploring the <em>MCQ-style brain</em> that hates blank answers, the <em>Parent-Child Analogy</em> behind a cosmic protector, natural morality without fear, and how religious hierarchies shaped gender roles in history.
+                    </p>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="p-7 rounded-xl bg-paper-50 border border-paper-200 shadow-xs hover:border-accent-amber/50 transition-colors">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="font-mono text-xs text-accent-amber font-medium">CHAPTER IV</span>
+                        <span class="font-mono text-xs text-ink-400">Modern Psychology</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-medium text-ink-900 mb-2">Modern Humans & The Need for Belief</h3>
+                    <p class="text-sm text-ink-600 leading-relaxed">
+                        Connecting B.F. Skinner’s conditioning experiments, irrational omen-guilt loops, and modern psychological research to understand why stressed minds still turn to prayer for hope and emotional peace.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 3: Author's Note (How I Began to Think) -->
+    <section id="authors-note" class="py-20 md:py-28 px-6 border-b border-paper-200/70">
+        <div class="max-w-3xl mx-auto reveal">
+            <div class="bg-paper-50 border border-paper-200 rounded-2xl p-8 sm:p-12 md:p-14 shadow-sm relative">
+                <!-- Decorative Corner Accent -->
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-8 h-[1px] bg-accent-amber"></span>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-amber">How My Thinking Began</span>
+                </div>
+
+                <h2 class="font-serif text-3xl sm:text-4xl font-medium text-ink-900 mb-8">Author's Note</h2>
+
+                <div class="font-serif text-lg sm:text-[19px] text-ink-800 leading-[1.85] space-y-5">
+                    <p class="drop-cap">
+                        My questions about God began when I was around twelve or thirteen. I grew up surrounded by religious beliefs, but I never accepted everything simply because people around me believed it.
+                    </p>
+                    <p>
+                        Over the years, I explored different religious ideas, questioned them, and gradually developed my own understanding. Today, I identify as an atheist.
+                    </p>
+                    <p>
+                        I have no personal conflict with God, religion or religious people. This book is not written to hurt anyone's feelings or challenge anyone's right to believe.
+                    </p>
+                    <p>
+                        I am writing because these are my thoughts, questions and observations, and I want to preserve them somewhere.
+                    </p>
+                    <p>
+                        I don't want my identity to be mistaken for the beliefs of the people among whom I live. Being surrounded by a religion does not make me its follower, and assuming otherwise would be a misunderstanding of who I am.
+                    </p>
+                    <p class="text-ink-900 font-medium pt-1">
+                        This book is my way of putting my thoughts into words, preserving them, and leaving behind a record of how I see the subject.
+                    </p>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-paper-200 flex items-center justify-between">
+                    <div>
+                        <p class="font-serif italic text-lg text-ink-900">— Adarsh Bodke</p>
+                        <p class="font-mono text-xs text-ink-400 mt-0.5">Maharashtra, India</p>
+                    </div>
+                    <button id="copy-quote-btn" class="text-xs font-mono text-ink-600 hover:text-accent-amber flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-paper-200 hover:border-accent-amber/50 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                        <span id="copy-quote-text">Copy Excerpt</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: About the Author -->
+    <section id="author" class="py-20 md:py-28 px-6">
+        <div class="max-w-4xl mx-auto reveal">
+            <div class="grid md:grid-cols-12 gap-10 items-start">
+                
+                <!-- Left Identity Card -->
+                <div class="md:col-span-4 bg-paper-100 border border-paper-200 rounded-2xl p-6 space-y-5">
+                    <div class="w-16 h-16 rounded-full bg-ink-900 text-paper-50 flex items-center justify-center font-serif text-2xl tracking-wider">
+                        AB
+                    </div>
+                    <div>
+                        <span class="font-mono text-[11px] uppercase tracking-wider text-accent-amber">The Author</span>
+                        <h3 class="font-serif text-2xl font-medium text-ink-900 mt-0.5">Adarsh Bodke</h3>
+                        <p class="text-sm text-ink-600 mt-1">Biology Student & Independent Writer</p>
+                        <p class="font-mono text-xs text-ink-400 mt-0.5">Maharashtra, India</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-paper-200 space-y-2.5 text-xs text-ink-600">
+                        <div class="flex justify-between">
+                            <span class="text-ink-400">Field of Study</span>
+                            <span class="font-medium text-ink-800">Biology</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ink-400">Debut Work</span>
+                            <span class="font-medium text-ink-800">Anatomy of God</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ink-400">Core Habit</span>
+                            <span class="font-medium text-ink-800">Asking "Why?"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Biography Text -->
+                <div class="md:col-span-8 space-y-6">
+                    <div>
+                        <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-amber">About the Author</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-medium text-ink-900 mt-1">Curiosity Beyond Familiar Answers</h2>
+                    </div>
+
+                    <div class="space-y-4 text-ink-600 text-base leading-relaxed">
+                        <p>
+                            <strong class="text-ink-900 font-semibold">Adarsh Bodke</strong> is a biology student from Maharashtra, India. His interests extend beyond his academic studies into science, human nature, philosophy and the many questions surrounding life and human existence.
+                        </p>
+                        <p>
+                            He has a habit of asking one question about almost everything: <strong class="text-ink-900 font-serif italic text-lg">Why?</strong>
+                        </p>
+
+                        <!-- Highlighted Questions Box -->
+                        <div class="my-5 pl-5 border-l-2 border-accent-amber py-1 space-y-1.5 font-serif italic text-lg text-ink-800">
+                            <p>"Why do we believe? Why do we follow? Why do we accept? Why do we consider certain things right or wrong? And, perhaps most importantly, why don't we question them more often?"</p>
+                        </div>
+
+                        <p>
+                            For him, asking why is not about disagreeing with everything, but about understanding things beyond their familiar explanations.
+                        </p>
+                        <p>
+                            <em class="font-serif text-ink-900">Anatomy of God</em> is his first book, an independent writing project developed alongside his academic pursuits. It reflects his personal curiosity about humanity, belief and the origins of the idea of God.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: QR Reader Reflection & Review Section -->
+    <section id="reviews" class="py-20 md:py-28 px-6 bg-paper-100/75 border-t border-paper-200">
+        <div class="max-w-4xl mx-auto space-y-12">
+            
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-3 reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-paper-50 border border-paper-200 text-xs font-mono text-ink-600">
+                    <svg class="w-3.5 h-3.5 text-accent-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+                    </svg>
+                    <span>Reader Reflections</span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-medium text-ink-900">Finished Reading the Book?</h2>
+                <p class="text-ink-600 text-sm sm:text-base leading-relaxed">
+                    If you arrived here from the QR code inside <em>Anatomy of God</em>, thank you for reading. Share your honest rating, thoughts, or the questions this book sparked in your mind.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-8 items-start reveal">
+                
+                <!-- Review Submission Form -->
+                <div class="md:col-span-7 bg-paper-50 border border-paper-200 rounded-2xl p-6 sm:p-8 shadow-xs">
+                    <h3 class="font-serif text-2xl font-medium text-ink-900 mb-5">Leave Your Review</h3>
+                    
+                    <form id="review-form" class="space-y-5">
+                        <!-- Star Rating Selector -->
+                        <div>
+                            <label class="block text-xs font-mono uppercase tracking-wider text-ink-600 mb-2">Your Rating</label>
+                            <div class="flex items-center gap-1.5" id="star-container">
+                                <button type="button" data-rating="1" class="star-btn text-paper-300 hover:text-accent-amber focus:outline-none" aria-label="1 Star">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" data-rating="2" class="star-btn text-paper-300 hover:text-accent-amber focus:outline-none" aria-label="2 Stars">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" data-rating="3" class="star-btn text-paper-300 hover:text-accent-amber focus:outline-none" aria-label="3 Stars">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" data-rating="4" class="star-btn text-paper-300 hover:text-accent-amber focus:outline-none" aria-label="4 Stars">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" data-rating="5" class="star-btn text-paper-300 hover:text-accent-amber focus:outline-none" aria-label="5 Stars">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <span id="rating-label" class="ml-3 text-xs font-mono text-ink-400">Select stars (1–5)</span>
+                            </div>
+                            <input type="hidden" id="rating-value" value="0" required>
+                        </div>
+
+                        <!-- Name & City/Background -->
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="reviewer-name" class="block text-xs font-mono uppercase tracking-wider text-ink-600 mb-1.5">Your Name</label>
+                                <input type="text" id="reviewer-name" placeholder="e.g., Rohan Kulkarni" required
+                                    class="w-full px-3.5 py-2.5 rounded-lg bg-paper-50 border border-paper-300 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-accent-amber transition-colors">
+                            </div>
+                            <div>
+                                <label for="reviewer-location" class="block text-xs font-mono uppercase tracking-wider text-ink-600 mb-1.5">City or Role (Optional)</label>
+                                <input type="text" id="reviewer-location" placeholder="e.g., Pune / Student"
+                                    class="w-full px-3.5 py-2.5 rounded-lg bg-paper-50 border border-paper-300 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-accent-amber transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Thought / Review Textarea -->
+                        <div>
+                            <label for="reviewer-thought" class="block text-xs font-mono uppercase tracking-wider text-ink-600 mb-1.5">What Did You Think?</label>
+                            <textarea id="reviewer-thought" rows="4" required placeholder="Share what resonated with you, a chapter that made you think, or your honest feedback..."
+                                class="w-full px-3.5 py-2.5 rounded-lg bg-paper-50 border border-paper-300 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-accent-amber transition-colors resize-none"></textarea>
+                        </div>
+
+                        <div id="form-error" class="hidden text-xs text-red-600 font-medium">
+                            Please select a star rating before submitting your reflection.
+                        </div>
+
+                        <button type="submit" class="w-full py-3 px-6 rounded-lg bg-ink-900 text-paper-50 text-sm font-medium hover:bg-accent-amber transition-colors cursor-pointer">
+                            Publish Reader Reflection
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Community Rating Summary + Recent Reflections -->
+                <div class="md:col-span-5 space-y-5">
+                    <!-- Rating Summary Card -->
+                    <div class="bg-paper-50 border border-paper-200 rounded-2xl p-6 flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-[11px] uppercase tracking-wider text-ink-400">Reader Consensus</span>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <span id="avg-rating" class="font-serif text-4xl font-medium text-ink-900">5.0</span>
+                                <span class="text-sm text-ink-400">/ 5.0</span>
+                            </div>
+                            <p id="review-count" class="text-xs text-ink-600 mt-1">Based on reader reflections</p>
+                        </div>
+                        <div class="flex text-accent-amber">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- Displayed Reviews List -->
+                    <div id="reviews-list" class="space-y-4 max-h-[420px] overflow-y-auto pr-1">
+                        <!-- Reviews dynamically rendered via JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer class="py-12 px-6 border-t border-paper-200 bg-paper-50">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-600">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent-amber"></span>
+                <span class="font-serif text-base font-medium text-ink-900">Anatomy of God</span>
+                <span class="text-ink-400">— By Adarsh Bodke</span>
+            </div>
+            <p class="font-mono text-ink-400 text-center sm:text-right">
+                An independent work on science, psychology & human curiosity.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        // 1. Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+
+        // 2. Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 3. Smooth Scroll Reveal Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 4. Copy Author's Note Excerpt Button
+        const copyBtn = document.getElementById('copy-quote-btn');
+        const copyText = document.getElementById('copy-quote-text');
+        copyBtn.addEventListener('click', () => {
+            const quote = `"For him, asking why is not about disagreeing with everything, but about understanding things beyond their familiar explanations." — Adarsh Bodke, Anatomy of God`;
+            navigator.clipboard.writeText(quote).then(() => {
+                copyText.textContent = 'Copied!';
+                setTimeout(() => { copyText.textContent = 'Copy Excerpt'; }, 2000);
+            });
+        });
+
+        // 5. Interactive Star Rating & Reader Review System (with LocalStorage Persistence)
+        const starBtns = document.querySelectorAll('.star-btn');
+        const ratingInput = document.getElementById('rating-value');
+        const ratingLabel = document.getElementById('rating-label');
+        const ratingDescriptions = {
+            1: '1/5 — Thought-provoking start',
+            2: '2/5 — Interesting perspective',
+            3: '3/5 — Clear & well-reasoned',
+            4: '4/5 — Deeply insightful read',
+            5: '5/5 — Essential & eye-opening'
+        };
+
+        let selectedRating = 0;
+
+        function paintStars(count) {
+            starBtns.forEach(btn => {
+                const val = parseInt(btn.getAttribute('data-rating'));
+                if (val <= count) {
+                    btn.classList.remove('text-paper-300');
+                    btn.classList.add('text-accent-amber');
+                } else {
+                    btn.classList.remove('text-accent-amber');
+                    btn.classList.add('text-paper-300');
+                }
+            });
+        }
+
+        starBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                const hoverVal = parseInt(btn.getAttribute('data-rating'));
+                paintStars(hoverVal);
+            });
+            btn.addEventListener('mouseleave', () => {
+                paintStars(selectedRating);
+            });
+            btn.addEventListener('click', () => {
+                selectedRating = parseInt(btn.getAttribute('data-rating'));
+                ratingInput.value = selectedRating;
+                ratingLabel.textContent = ratingDescriptions[selectedRating];
+                ratingLabel.classList.remove('text-ink-400');
+                ratingLabel.classList.add('text-accent-amber', 'font-medium');
+                document.getElementById('form-error').classList.add('hidden');
+                paintStars(selectedRating);
+            });
+        });
+
+        // Initial Sample Reflections (shown until visitors add their own)
+        const defaultReviews = [
+            {
+                name: 'Ananya Deshmukh',
+                location: 'Pune, Maharashtra',
+                rating: 5,
+                thought: 'The Parent-Child analogy and the chapter on how our brains dislike unanswered questions explained concepts I had wondered about since school—without ever feeling disrespectful.',
+                date: 'Reader Reflection'
+            },
+            {
+                name: 'Siddharth Patil',
+                location: 'Biology Undergraduate',
+                rating: 5,
+                thought: 'Remarkable clarity for a debut independent book. Connecting evolutionary imperfection with everyday psychology makes the entire argument effortless to follow.',
+                date: 'Reader Reflection'
+            }
+        ];
+
+        function loadReviews() {
+            const saved = localStorage.getItem('anatomy_of_god_reviews');
+            return saved ? JSON.parse(saved) : defaultReviews;
+        }
+
+        function saveReviews(reviews) {
+            localStorage.setItem('anatomy_of_god_reviews', JSON.stringify(reviews));
+        }
+
+        function renderStarsSVG(count) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                const colorClass = i <= count ? 'text-accent-amber' : 'text-paper-300';
+                stars += `<svg class="w-4 h-4 fill-current ${colorClass}" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+            }
+            return stars;
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function renderReviews() {
+            const reviews = loadReviews();
+            const listEl = document.getElementById('reviews-list');
+            const avgEl = document.getElementById('avg-rating');
+            const countEl = document.getElementById('review-count');
+
+            // Update average rating
+            const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+            const avg = reviews.length ? (total / reviews.length).toFixed(1) : '5.0';
+            avgEl.textContent = avg;
+            countEl.textContent = `Based on ${reviews.length} reader reflection${reviews.length === 1 ? '' : 's'}`;
+
+            listEl.innerHTML = reviews.map(r => `
+                <div class="bg-paper-50 border border-paper-200 rounded-xl p-5 space-y-2.5 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-sm text-ink-900">${escapeHTML(r.name)}</h4>
+                            ${r.location ? `<p class="font-mono text-[11px] text-ink-400">${escapeHTML(r.location)}</p>` : ''}
+                        </div>
+                        <div class="flex items-center gap-0.5">${renderStarsSVG(r.rating)}</div>
+                    </div>
+                    <p class="text-sm text-ink-600 leading-relaxed">"${escapeHTML(r.thought)}"</p>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('review-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (selectedRating === 0) {
+                document.getElementById('form-error').classList.remove('hidden');
+                return;
+            }
+
+            const name = document.getElementById('reviewer-name').value.trim();
+            const location = document.getElementById('reviewer-location').value.trim();
+            const thought = document.getElementById('reviewer-thought').value.trim();
+
+            if (!name || !thought) return;
+
+            const reviews = loadReviews();
+            reviews.unshift({
+                name,
+                location,
+                rating: selectedRating,
+                thought,
+                date: new Date().toLocaleDateString()
+            });
+
+            saveReviews(reviews);
+            renderReviews();
+
+            // Reset form smoothly
+            e.target.reset();
+            selectedRating = 0;
+            ratingInput.value = 0;
+            ratingLabel.textContent = 'Thank you for your reflection!';
+            ratingLabel.classList.remove('text-accent-amber');
+            ratingLabel.classList.add('text-emerald-700');
+            paintStars(0);
+        });
+
+        // Initial render on load
+        renderReviews();
+    </script>
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("index.html successfully generated.")
